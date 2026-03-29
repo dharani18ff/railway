@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Search Trains{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Find Trains</h2>
+    <form action="{{ url_for('search_trains') }}" method="post" class="grid-form">
+        <label>
+            Source
+            <select name="source" required>
+                <option value="">Select source</option>
+                {% for station in stations %}
+                    <option value="{{ station }}">{{ station }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>
+            Destination
+            <select name="destination" required>
+                <option value="">Select destination</option>
+                {% for station in stations %}
+                    <option value="{{ station }}">{{ station }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>
+            Travel Date
+            <input type="date" name="travel_date" min="{{ today }}" required>
+        </label>
+
+        <label>
+            Class
+            <select name="travel_class" required>
+                <option>Sleeper</option>
+                <option>AC 3 Tier</option>
+                <option>AC 2 Tier</option>
+                <option>First Class</option>
+            </select>
+        </label>
+
+        <button type="submit">Search</button>
+    </form>
+</section>
+{% endblock %}

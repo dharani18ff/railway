@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Track Trains{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Track Train Status</h2>
+    <p class="meta">Select a train number to check current station, next station, delay, and platform.</p>
+
+    <form action="{{ url_for('tracking') }}" method="post" class="grid-form">
+        <label>
+            Train Number
+            <select name="train_number" required>
+                <option value="">Select train</option>
+                {% for train in trains %}
+                    <option value="{{ train.number }}" {% if selected_number == train.number %}selected{% endif %}>
+                        {{ train.number }} - {{ train.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <button type="submit">Track Now</button>
+    </form>
+</section>
+
+{% if tracking_info %}
+<section class="card tracking-card">
+    <h2>{{ tracking_info.train_name }} ({{ tracking_info.train_number }})</h2>
+    <p class="meta">{{ tracking_info.route }}</p>
+
+    <div class="tracking-grid">
+        <div class="stat-box">
+            <span class="stat-label">Status</span>
+            <strong>{{ tracking_info.status }}</strong>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Current Station</span>
+            <strong>{{ tracking_info.current_station }}</strong>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Next Station</span>
+            <strong>{{ tracking_info.next_station }}</strong>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Take In Time</span>
+            <strong>{{ tracking_info.take_in_time }}</strong>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Take Out Time</span>
+            <strong>{{ tracking_info.take_out_time }}</strong>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Delay</span>
+            <strong>{{ tracking_info.delay_minutes }} minutes</strong>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Platform</span>
+            <strong>{{ tracking_info.platform }}</strong>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Last Updated</span>
+            <strong>{{ tracking_info.updated_at }}</strong>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Manage Database{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Database Management</h2>
+    <p class="meta">View, update, and delete reservations from the database.</p>
+
+    {% if reservations %}
+    <div class="table-scroll">
+        <table class="manage-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Passenger</th>
+                    <th>Train</th>
+                    <th>Route</th>
+                    <th>Date</th>
+                    <th>Class</th>
+                    <th>Seats</th>
+                    <th>Total (INR)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in reservations %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.passenger_name }} ({{ item.gender }}, {{ item.age }})</td>
+                    <td>{{ item.train_name }} ({{ item.train_number }})</td>
+                    <td>{{ item.source }} to {{ item.destination }}</td>
+                    <td>{{ item.travel_date }}</td>
+                    <td>{{ item.travel_class }}</td>
+                    <td>{{ item.seats }}</td>
+                    <td>{{ item.total_fare }}</td>
+                    <td class="action-buttons">
+                        <a class="btn-update" href="{{ url_for('update_reservation', res_id=item.id) }}">Update</a>
+                        <form method="post" action="{{ url_for('delete_reservation', res_id=item.id) }}" style="display: inline;">
+                            <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this reservation?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="empty">No reservations in database.</p>
+    {% endif %}
+</section>
+{% endblock %}

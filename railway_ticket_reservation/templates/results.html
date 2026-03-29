@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Train Results{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Available Trains</h2>
+    <p class="meta">Route: {{ source }} to {{ destination }} | Date: {{ travel_date }} | Class: {{ travel_class }}</p>
+
+    {% if trains %}
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Train</th>
+                        <th>Take In Time</th>
+                        <th>Take Out Time</th>
+                        <th>Base Fare (INR)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for train in trains %}
+                    <tr>
+                        <td>{{ train.name }} ({{ train.number }})</td>
+                        <td>{{ train.departure }}</td>
+                        <td>{{ train.arrival }}</td>
+                        <td>{{ train.fare }}</td>
+                        <td>
+                            <a class="button-link" href="{{ url_for('book_train', train_id=train.id, travel_date=travel_date, travel_class=travel_class) }}">Book Now</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="empty">No trains found for this route.</p>
+    {% endif %}
+</section>
+{% endblock %}

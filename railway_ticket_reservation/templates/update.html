@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Update Reservation{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Update Reservation</h2>
+    <p class="meta">Reservation ID: {{ reservation.id }} | Train: {{ reservation.train_name }} ({{ reservation.train_number }})</p>
+
+    <form method="post" class="grid-form">
+        <label>
+            Passenger Name
+            <input type="text" name="passenger_name" value="{{ reservation.passenger_name }}" required>
+        </label>
+
+        <label>
+            Age
+            <input type="number" name="age" value="{{ reservation.age }}" min="1" max="120" required>
+        </label>
+
+        <label>
+            Gender
+            <select name="gender" required>
+                <option value="Male" {% if reservation.gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if reservation.gender == 'Female' %}selected{% endif %}>Female</option>
+                <option value="Other" {% if reservation.gender == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+        </label>
+
+        <label>
+            Seats
+            <input type="number" name="seats" value="{{ reservation.seats }}" min="1" max="6" required>
+        </label>
+
+        <label>
+            Class
+            <select name="travel_class" required>
+                <option value="Sleeper" {% if reservation.travel_class == 'Sleeper' %}selected{% endif %}>Sleeper</option>
+                <option value="AC 3 Tier" {% if reservation.travel_class == 'AC 3 Tier' %}selected{% endif %}>AC 3 Tier</option>
+                <option value="AC 2 Tier" {% if reservation.travel_class == 'AC 2 Tier' %}selected{% endif %}>AC 2 Tier</option>
+                <option value="First Class" {% if reservation.travel_class == 'First Class' %}selected{% endif %}>First Class</option>
+            </select>
+        </label>
+
+        <button type="submit">Update Reservation</button>
+    </form>
+
+    <div style="margin-top: 16px;">
+        <a class="button-link secondary" href="{{ url_for('manage') }}">Back to Management</a>
+    </div>
+</section>
+{% endblock %}

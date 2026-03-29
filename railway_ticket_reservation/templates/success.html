@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Booking Successful{% endblock %}
+
+{% block content %}
+<section class="card success-card">
+    <h2>Booking Confirmed</h2>
+    <p>Your reservation has been saved successfully.</p>
+    <ul class="summary">
+        <li>Train: {{ train.name }} ({{ train.number }})</li>
+        <li>Route: {{ train.source }} to {{ train.destination }}</li>
+        <li>Class: {{ travel_class }}</li>
+        <li>Seats: {{ seats }}</li>
+        <li>Total Fare: INR {{ total_fare }}</li>
+    </ul>
+    <div class="actions">
+        <a class="button-link" href="{{ url_for('index') }}">Book Another Ticket</a>
+        <a class="button-link secondary" href="{{ url_for('reservations') }}">View Reservations</a>
+    </div>
+</section>
+{% endblock %}
