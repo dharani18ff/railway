@@ -5,8 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Railway Reservation{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+    <div class="topbar">
+        <div class="wrap topbar-inner">
+            <div class="topbar-brand">
+                <span class="topbar-logo">🚆</span>
+                <span class="topbar-title">Indian Railway</span>
+            </div>
+            <div class="topbar-item">
+                <i class="fa-solid fa-location-dot topbar-icon"></i>
+                <div>
+                    <span class="topbar-label">Address</span>
+                    <span class="topbar-text">Rail Bhawan, Raisina Road,<br>New Delhi 110001</span>
+                </div>
+            </div>
+            <div class="topbar-item">
+                <i class="fa-regular fa-envelope topbar-icon"></i>
+                <div>
+                    <span class="topbar-label">Mail Us</span>
+                    <span class="topbar-text">support@indianrailway.gov.in</span>
+                </div>
+            </div>
+            <div class="topbar-item">
+                <i class="fa-solid fa-phone topbar-icon"></i>
+                <div>
+                    <span class="topbar-label">Call Us</span>
+                    <span class="topbar-text">139 / 1800-111-139</span>
+                </div>
+            </div>
+        </div>
+    </div>
     <header class="header">
         <div class="wrap">
             <h1 class="brand">Railway Ticket Reservation</h1>

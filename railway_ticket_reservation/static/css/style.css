@@ -15,6 +15,79 @@
     box-sizing: border-box;
 }
 
+/* ── Top info bar ── */
+.topbar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+}
+
+.topbar-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: auto;
+}
+
+.topbar-logo {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.topbar-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.03em;
+}
+
+.topbar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topbar-icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.topbar-label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.topbar-text {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+@media (max-width: 680px) {
+    .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .topbar-brand {
+        margin-right: 0;
+    }
+}
+
 body {
     margin: 0;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
