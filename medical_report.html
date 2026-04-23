@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Report – D Dharanidasan</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f4f8;
+            color: #222;
+            min-height: 100vh;
+            padding: 40px 16px;
+        }
+
+        .page {
+            max-width: 760px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* ── Medical Report Card ── */
+        .report-card {
+            background: #ffffff;
+            border: 2px solid #1565c0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(21, 101, 192, 0.12);
+        }
+
+        .report-header {
+            background: #1565c0;
+            color: #fff;
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .report-header .logo {
+            font-size: 2.4rem;
+            line-height: 1;
+        }
+
+        .report-header .title-block h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .report-header .title-block p {
+            font-size: 0.82rem;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
+        .report-body {
+            padding: 24px 28px;
+        }
+
+        .section-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #1565c0;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #e3eaf5;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .info-item label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 3px;
+        }
+
+        .info-item span {
+            font-size: 0.97rem;
+            font-weight: 500;
+            color: #111;
+        }
+
+        .diagnosis-box {
+            background: #fff3e0;
+            border-left: 4px solid #e65100;
+            border-radius: 0 6px 6px 0;
+            padding: 14px 18px;
+            margin-bottom: 22px;
+        }
+
+        .diagnosis-box .diag-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #e65100;
+            margin-bottom: 6px;
+        }
+
+        .diagnosis-box .diag-value {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #bf360c;
+        }
+
+        .recommendations {
+            background: #e8f5e9;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-bottom: 22px;
+        }
+
+        .recommendations .rec-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+
+        .recommendations ul {
+            padding-left: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .recommendations ul li {
+            font-size: 0.92rem;
+            color: #1b5e20;
+        }
+
+        .report-footer {
+            border-top: 1px solid #e3eaf5;
+            padding-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .report-footer .date-info {
+            font-size: 0.82rem;
+            color: #555;
+        }
+
+        .signature-block {
+            text-align: center;
+        }
+
+        .signature-block .sig-line {
+            border-top: 1px solid #333;
+            width: 160px;
+            margin: 0 auto 4px;
+        }
+
+        .signature-block p {
+            font-size: 0.78rem;
+            color: #444;
+        }
+
+        /* ── Address Card ── */
+        .address-card {
+            background: #ffffff;
+            border: 1px solid #cfd8dc;
+            border-radius: 10px;
+            padding: 22px 28px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .address-card .section-title {
+            color: #37474f;
+            border-bottom-color: #eceff1;
+        }
+
+        .address-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .address-grid .info-item label {
+            color: #78909c;
+        }
+
+        .address-grid .info-item span {
+            color: #263238;
+        }
+
+        @media print {
+            body { background: #fff; padding: 0; }
+            .page { max-width: 100%; }
+            .report-card, .address-card { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+
+        <!-- ══════════════ MEDICAL REPORT ══════════════ -->
+        <div class="report-card">
+            <div class="report-header">
+                <div class="logo">🏥</div>
+                <div class="title-block">
+                    <h1>Medical Report</h1>
+                    <p>Confidential Patient Record &nbsp;|&nbsp; Date: <span id="report-date"></span></p>
+                </div>
+            </div>
+
+            <div class="report-body">
+
+                <!-- Patient Information -->
+                <p class="section-title">Patient Information</p>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Full Name</label>
+                        <span>D Dharanidasan</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Age</label>
+                        <span>22 Years</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Gender</label>
+                        <span>Male</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Patient ID</label>
+                        <span>PT-2024-0001</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Blood Group</label>
+                        <span>—</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Contact</label>
+                        <span>—</span>
+                    </div>
+                </div>
+
+                <!-- Diagnosis -->
+                <p class="section-title">Diagnosis</p>
+                <div class="diagnosis-box">
+                    <p class="diag-label">Primary Health Issue</p>
+                    <p class="diag-value">Nutritional Deficiency</p>
+                </div>
+
+                <!-- Recommendations -->
+                <p class="section-title">Recommendations</p>
+                <div class="recommendations">
+                    <p class="rec-title">Treatment &amp; Care Plan</p>
+                    <ul>
+                        <li>Consume a balanced diet rich in vitamins and minerals.</li>
+                        <li>Include iron-rich foods such as spinach, legumes, and lean meat.</li>
+                        <li>Take prescribed multivitamin supplements daily.</li>
+                        <li>Stay adequately hydrated (8–10 glasses of water per day).</li>
+                        <li>Schedule a follow-up consultation within 30 days.</li>
+                    </ul>
+                </div>
+
+                <!-- Footer / Signature -->
+                <div class="report-footer">
+                    <div class="date-info">
+                        <p><strong>Issued:</strong> <span id="issued-date"></span></p>
+                        <p><strong>Next Review:</strong> <span id="review-date"></span></p>
+                    </div>
+                    <div class="signature-block">
+                        <div class="sig-line"></div>
+                        <p>Authorised Medical Officer</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ══════════════ ADDRESS ══════════════ -->
+        <div class="address-card">
+            <p class="section-title">Patient Address</p>
+            <div class="address-grid">
+                <div class="info-item">
+                    <label>Full Name</label>
+                    <span>D Dharanidasan</span>
+                </div>
+                <div class="info-item">
+                    <label>Street / Area</label>
+                    <span>—</span>
+                </div>
+                <div class="info-item">
+                    <label>City</label>
+                    <span>—</span>
+                </div>
+                <div class="info-item">
+                    <label>State</label>
+                    <span>Tamil Nadu</span>
+                </div>
+                <div class="info-item">
+                    <label>PIN Code</label>
+                    <span>—</span>
+                </div>
+                <div class="info-item">
+                    <label>Country</label>
+                    <span>India</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const today = new Date();
+        const fmt = d => d.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
+        const review = new Date(today);
+        review.setDate(review.getDate() + 30);
+
+        document.getElementById('report-date').textContent = fmt(today);
+        document.getElementById('issued-date').textContent = fmt(today);
+        document.getElementById('review-date').textContent = fmt(review);
+    </script>
+</body>
+</html>
